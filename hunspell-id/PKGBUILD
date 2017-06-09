@@ -1,0 +1,33 @@
+# Maintainer: Ali Ahmadi <idnux09@gmail.com>
+
+pkgname=hunspell-id
+pkgver=2.0
+pkgrel=4
+pkgdesc="Indonesian spelling dictionary"
+arch=('any')
+url="http://extensions.libreoffice.org/extension-center/indonesian-dictionary-kamus-indonesia-by-benitius"
+license=('GPL')
+groups=('dict-id')
+optdepends=('hunspell: the spell checking libraries and apps'
+            'hyphen-id: Indonesian hyphenation rules'
+            'mythes-id: Indonesian thesaurus')
+source=("http://extensions.libreoffice.org/extension-center/indonesian-dictionary-kamus-indonesia-by-benitius/releases/${pkgver}/id_id.oxt")
+sha256sums=('9a2464273c985dd21bb265d3797fc82e98fbbb2ca943eb9e521625ef49aa63da')
+
+package() {
+  cd ${srcdir}/
+  install -dm755 ${pkgdir}/usr/share/hunspell
+  install -m644 id_ID.* ${pkgdir}/usr/share/hunspell
+
+  # symlinks
+  install -dm755 ${pkgdir}/usr/share/myspell/dicts
+  pushd ${pkgdir}/usr/share/myspell/dicts
+    for file in ${pkgdir}/usr/share/hunspell/*; do
+      ln -sv /usr/share/hunspell/$(basename ${file}) .
+    done
+  popd
+
+  # install doc
+  install -dm755 ${pkgdir}/usr/share/doc/${pkgname}/
+  install -m644 info/long-description.txt ${pkgdir}/usr/share/doc/${pkgname}/README.txt
+}

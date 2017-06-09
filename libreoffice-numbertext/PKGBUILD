@@ -1,0 +1,24 @@
+# Maintainer: Ali Ahmadi <idnux09@gmail.com>
+
+pkgname=libreoffice-extension-numbertext
+_pkgname=numbertext
+pkgver=0.9.5
+pkgrel=1
+pkgdesc="Language-neutral NUMBERTEXT and MONEYTEXT functions for OpenOffice.org/LibreOffice Calc"
+arch=('any')
+url="http://numbertext.org"
+license=('LGPL' 'BSD')
+groups=('libreoffice-extensions')
+depends=('libreoffice')
+makedepends=('unzip')
+source=(http://numbertext.org/dist/${_pkgname}-${pkgver}.oxt)
+noextract=(${source[@]##*/})
+
+md5sums=('b7cae45ad2c23551fd6ccb8ae2c1f59e')
+
+package() {
+   _DESTDIR="${pkgdir}/usr/lib/libreoffice/share/extensions/${_pkgname}/"
+   install -dm755 "${_DESTDIR}"
+   unzip -q "$srcdir"/${_pkgname}-${pkgver}.oxt -d "${_DESTDIR}"
+   chmod -R g-w,o-w "${_DESTDIR}"
+}

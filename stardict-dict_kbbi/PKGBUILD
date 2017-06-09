@@ -1,0 +1,26 @@
+# Maintainer: Ali Ahmadi <idnux09@gmail.com>
+
+pkgname=stardict-kbbi
+pkgver=2.4.2
+pkgrel=1
+pkgdesc="KBBI dictionary for StarDict"
+arch=(any)
+depends=('stardict')
+url="http://people.masterweb.net/steven/files/"
+license=('GPL')
+md5sums=('4ce0b0a55a81a79465036d71af9a127d')
+source=(http://arsip.blankonlinux.or.id/blankon/pool/main/s/$pkgname/stardict-kbbi_$pkgver-0blankon7.tar.gz)
+
+prepare() {
+	cd $srcdir/$pkgname-$pkgver-0blankon7
+	tar -xjvf $pkgname-$pkgver.tar.bz2
+}
+
+package() {
+	cd $srcdir/$pkgname-$pkgver-0blankon7
+	mkdir -p $pkgdir/usr/share/stardict/dic
+	mkdir -p $pkgdir/usr/share/licenses/$pkgname
+	install -m 644 stardict*/* $pkgdir/usr/share/stardict/dic
+	install -m 644 debian/copyright $pkgdir/usr/share/licenses/$pkgname
+}
+

@@ -1,0 +1,22 @@
+# Maintainer: Ali Ahmadi <idnux09@gmail.com>
+
+pkgname=stardict-babylon-ar-en-ar
+pkgver=2.4.2
+pkgrel=1
+pkgdesc="Babylon English Arabic dictionary for stardict for stardict"
+arch=(any)
+depends=('stardict')
+url="http://abloz.com/huzheng/stardict-dic/babylon/"
+license=('unknown')
+md5sums=('7bbf2446ce3ba108837897618e05712c'
+	'a3b03f30090505dbbca8d797696bef86')
+source=(http://abloz.com/huzheng/stardict-dic/babylon/bidirectional/stardict-babylon-Babylon_English_Arabic-$pkgver.tar.bz2
+	http://abloz.com/huzheng/stardict-dic/babylon/bidirectional/stardict-babylon-Babylon_Arabic_English-$pkgver.tar.bz2)
+
+
+package() {
+	cd $srcdir
+	mkdir -p $pkgdir/usr/share/stardict/dic
+	install -m 644 */* $pkgdir/usr/share/stardict/dic
+}
+

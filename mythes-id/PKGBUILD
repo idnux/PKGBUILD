@@ -1,0 +1,28 @@
+# Maintainer: Ali Ahmadi <alienux09@gmail.com>
+
+pkgname=mythes-id
+pkgver=1.0
+pkgrel=1
+arch=('any')
+url="https://idnux.wordpress.com/proyek/mythes-id/"
+license=('LGPL')
+pkgdesc="Indonesian thesaurus"
+optdepends=('libmythes: offers thesaurus library functions')
+source=("https://www.dropbox.com/s/yszvp5cfo9t15kz/thes_id_ID.tar.gz")
+sha256sums=('dc5f44ec005a4dfdb516b607702091967f2fdf4ec5d5bc07508cfd850cb97254')
+
+package() {
+  cd ${srcdir}
+  install -dm755 ${pkgdir}/usr/share/mythes
+  install -m644 th_id_ID_v2.idx ${pkgdir}/usr/share/mythes
+  install -m644 th_id_ID_v2.dat ${pkgdir}/usr/share/mythes
+
+  # the symlinks
+  install -dm755 ${pkgdir}/usr/share/myspell/dicts
+  ln -s /usr/share/mythes/th_id_ID_v2.idx ${pkgdir}/usr/share/myspell/dicts
+  ln -s /usr/share/mythes/th_id_ID_v2.dat ${pkgdir}/usr/share/myspell/dicts
+
+  # docs
+  install -dm755 ${pkgdir}/usr/share/doc/$pkgname
+  cp -p README_th_id_ID.txt $pkgdir/usr/share/doc/$pkgname
+}

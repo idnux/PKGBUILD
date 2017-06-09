@@ -1,0 +1,56 @@
+#
+# PKGBUILD for package elboukhari
+# Maintainer: Ali Ahmadi <idnux09@gmail.com>
+#
+# Copyright (c) 2011-2013 abouzakaria (source),
+# 
+#
+# Please submit bugfixes or comments via
+# http://elkirtasse.sourceforge.net
+#
+
+pkgname=elboukhari
+pkgver=1.0
+pkgrel=3
+pkgdesc="تصفح واستمع الى صحيح البخاري."
+arch=('i686' 'x86_64')
+url="http://elboukhari.sourceforge.net"
+license=('GPL3')
+depends=('qt4' 'phonon-qt4')
+makedepends=('make' 'qt4')
+source=("http://netcologne.dl.sourceforge.net/project/elboukhari/src/elboukhari%20v1/${pkgname}_${pkgver}.orig.tar.gz"
+	'elboukhari.patch')
+md5sums=('81336a4bdc6c1151cfb48ccac8b4a9b2'
+	'fe07d5832fcd066a185a6a7c4fc95d03')
+
+build() {
+  cd ${srcdir}/${pkgname}_${pkgver}
+
+  patch -Np1 -i "$srcdir/${pkgname}.patch"
+ 
+  qmake-qt4 ${pkgname}.pro
+  make 
+}
+
+package() {
+  cd ${srcdir}/${pkgname}_${pkgver}
+ 
+  
+  #make INSTALL_PREFIX="$pkgdir" install
+  
+   mkdir -p ${pkgdir}/usr/bin/
+    mkdir -p ${pkgdir}/usr/share/${pkgname}/
+   mkdir -p ${pkgdir}/usr/share/applications/
+	mkdir -p ${pkgdir}/usr/share/icons/hicolor/scalable/apps/
+	mkdir -p ${pkgdir}/usr/share/doc/${pkgname}/
+    
+   install -D -m 755 ${pkgname} ${pkgdir}/usr/share/${pkgname}/
+   cp -R usr/share/icons ${pkgdir}/usr/share/
+    install -D -m 755 usr/bin/${pkgname} ${pkgdir}/usr/bin/
+	cp main.xml ${pkgdir}/usr/share/${pkgname}/
+	cp -R sound/ ${pkgdir}/usr/share/${pkgname}/
+	cp copyright ${pkgdir}/usr/share/doc/${pkgname}/
+	cp AUTHORS ${pkgdir}/usr/share/doc/${pkgname}/
+        
+  install -D -m 644 -T usr/share/applications/${pkgname}.desktop ${pkgdir}/usr/share/applications/${pkgname}.desktop  
+}

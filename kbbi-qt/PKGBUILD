@@ -1,0 +1,40 @@
+# Maintainer: Ali Ahmadi <idnux09@gmail.com>
+
+pkgname=kbbi-qt
+pkgver=1.1
+pkgrel=1
+pkgdesc="Kamus Besar Bahasa Indonesia Luring."
+arch=('i686' 'x86_64')
+url="https://github.com/bgli/kbbi-qt"
+license=('GPL3')
+depends=('qt5-base')
+makedepends=('make' 'qt5-base' 'git')
+source=("${pkgname}::git+https://github.com/bgli/kbbi-qt.git")
+md5sums=('SKIP')
+
+
+build() {
+  cd ${srcdir}/${pkgname}
+
+  qmake KBBI-Qt.pro
+  make 
+}
+
+package() {
+  cd ${srcdir}/${pkgname}
+  
+   mkdir -p ${pkgdir}/usr/bin/
+   mkdir -p ${pkgdir}/usr/share/KBBI-Qt
+   mkdir -p ${pkgdir}/usr/share/applications/
+	mkdir -p ${pkgdir}/usr/share/pixmaps/
+	mkdir -p ${pkgdir}/usr/share/doc/${pkgname}/
+	mkdir -p ${pkgdir}/usr/share/licenses/${pkgname}/
+
+   cp -R  src/data/ ${pkgdir}/usr/share/KBBI-Qt/
+   cp src/kbbi-qt.png ${pkgdir}/usr/share/pixmaps/
+   install -D -m 755 KBBI-Qt ${pkgdir}/usr/bin/
+   cp LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
+   cp README.md ${pkgdir}/usr/share/doc/${pkgname}/README
+	
+  install -D -m 644 -T KBBI-Qt.desktop ${pkgdir}/usr/share/applications/${pkgname}.desktop  
+}

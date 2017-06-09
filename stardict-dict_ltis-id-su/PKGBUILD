@@ -1,0 +1,27 @@
+# Maintainer: Ali Ahmadi <idnux09@gmail.com>
+
+pkgname=stardict-ltis-id-su-id
+pkgver=2.4.2
+pkgrel=1
+pkgdesc="Indonesian dictionary to Sundanese for stardict"
+arch=(any)
+depends=('stardict')
+url="http://people.masterweb.net/steven/files"
+license=('GPL')
+md5sums=('e0b839721e8f51e5cc59ade9a86ee04f')
+source=(http://arsip.blankonlinux.or.id/blankon/pool/main/s/$pkgname/stardict-ltis-id-su-id_$pkgver-0blankon4.tar.gz)
+
+prepare() {
+	cd $srcdir/$pkgname-$pkgver-0blankon4
+	tar -xjvf stardict-ltis_id_su-$pkgver.tar.bz2
+	tar -xjvf stardict-ltis_su_id-$pkgver.tar.bz2
+}
+
+package() {
+	cd $srcdir/$pkgname-$pkgver-0blankon4
+	mkdir -p $pkgdir/usr/share/stardict/dic
+	mkdir -p $pkgdir/usr/share/licenses/$pkgname
+	install -m 644 stardict*/* $pkgdir/usr/share/stardict/dic
+	install -m 644 debian/copyright $pkgdir/usr/share/licenses/$pkgname
+}
+

@@ -1,0 +1,44 @@
+# Maintainer: Ali Ahmadi <idnux09@gmail.com>
+
+pkgname=stardict-quick-nusantarakata
+pkgver=2.5.0
+pkgrel=1
+pkgdesc="Nusantara Kata dictionary for StarDict"
+arch=(any)
+depends=('stardict')
+url="http://p.blankon.in/package/stardict-quick-nusantarakata/"
+license=('GPL')
+md5sums=('dccffc048a69881027eb9d2d609ab64a')
+source=(http://arsip.blankonlinux.or.id/blankon/pool/main/s/$pkgname/stardict-quick-nusantarakata_$pkgver-0blankon4.tar.gz)
+
+
+prepare() {
+	cd $srcdir/$pkgname-$pkgver-0blankon4
+	tar -xjvf stardict-quick_indonesia-aceh.tar.bz2
+	tar -xjvf stardict-quick_indonesia-ambon.tar.bz2
+	tar -xjvf stardict-quick_indonesia-bali.tar.bz2
+	tar -xjvf stardict-quick_indonesia-banjar.tar.bz2
+	tar -xjvf stardict-quick_indonesia-betawi.tar.bz2
+	tar -xjvf stardict-quick_indonesia-bugis.tar.bz2
+	tar -xjvf stardict-quick_indonesia-gayo.tar.bz2
+	tar -xjvf stardict-quick_indonesia-jambi.tar.bz2
+	tar -xjvf stardict-quick_indonesia-jawa.tar.bz2
+	tar -xjvf stardict-quick_indonesia-madura.tar.bz2
+	tar -xjvf stardict-quick_indonesia-makassar.tar.bz2
+	tar -xjvf stardict-quick_indonesia-malangan.tar.bz2
+	tar -xjvf stardict-quick_indonesia-minang.tar.bz2
+	tar -xjvf stardict-quick_indonesia-palembang.tar.bz2
+	tar -xjvf stardict-quick_indonesia-sasak.tar.bz2
+	tar -xjvf stardict-quick_indonesia-simalungun.tar.bz2
+	tar -xjvf stardict-quick_indonesia-sunda.tar.bz2
+	tar -xjvf stardict-quick_indonesia-toba.tar.bz2
+}
+
+package() {
+	cd $srcdir/$pkgname-$pkgver-0blankon4
+	mkdir -p $pkgdir/usr/share/stardict/dic
+	mkdir -p $pkgdir/usr/share/licenses/$pkgname
+	install -m 644 stardict*/* $pkgdir/usr/share/stardict/dic
+	install -m 644 debian/copyright $pkgdir/usr/share/licenses/$pkgname
+}
+

@@ -1,0 +1,32 @@
+# Maintainer: Ali Ahmadi <idnux09@gmail.com>
+
+pkgname=hyphen-id
+pkgver=2.0
+pkgrel=4
+pkgdesc="Indonesian hyphenation rules"
+arch=('any')
+url="http://extensions.libreoffice.org/extension-center/indonesian-dictionary-kamus-indonesia-by-benitius"
+license=('GPL')
+groups=('dict-id')
+optdepends=('hyphen: offers hyphenation library functions'
+            'hunspell-id: Indonesian spelling dictionary'
+            'mythes-id: Indonesian thesaurus')
+source=("http://extensions.libreoffice.org/extension-center/indonesian-dictionary-kamus-indonesia-by-benitius/releases/${pkgver}/id_id.oxt")
+sha256sums=('9a2464273c985dd21bb265d3797fc82e98fbbb2ca943eb9e521625ef49aa63da')
+
+package() {
+  cd ${srcdir}/
+  install -Dm755 hyph_id_ID.dic ${pkgdir}/usr/share/hyphen/hyph_id_ID.dic
+
+  # symlinks
+  install -dm755 ${pkgdir}/usr/share/myspell/dicts
+  pushd ${pkgdir}/usr/share/myspell/dicts
+    for file in ${pkgdir}/usr/share/hyphen/*; do
+      ln -sv /usr/share/hyphen/$(basename ${file}) .
+    done
+  popd
+
+  # install doc
+  install -dm755 ${pkgdir}/usr/share/doc/${pkgname}/
+  install -m644 info/long-description.txt ${pkgdir}/usr/share/doc/${pkgname}/README.txt
+}

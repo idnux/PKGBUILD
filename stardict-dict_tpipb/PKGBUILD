@@ -1,0 +1,26 @@
+# Maintainer: Ali Ahmadi <idnux09@gmail.com>
+
+pkgname=stardict-tbipb
+pkgver=2.4.2
+pkgrel=1
+pkgdesc="Tesaurus Bahasa Indonesia for StarDict"
+arch=(any)
+depends=('stardict')
+url="http://people.masterweb.net/steven/files/"
+license=('GPL')
+md5sums=('bf69bda938cdf24e5ca6b89c8ef05c96')
+source=(http://arsip.blankonlinux.or.id/blankon/pool/main/s/stardict-tbipb1/stardict-tbipb1_$pkgver-0blankon6.tar.gz)
+
+prepare() {
+	cd $srcdir/stardict-tbipb1-$pkgver-0blankon6
+	tar -xjvf stardict-tbipb1-$pkgver.tar.bz2
+}
+
+package() {
+	cd $srcdir/stardict-tbipb1-$pkgver-0blankon6
+	mkdir -p $pkgdir/usr/share/stardict/dic
+	mkdir -p $pkgdir/usr/share/licenses/$pkgname
+	install -m 644 stardict*/* $pkgdir/usr/share/stardict/dic
+	install -m 644 debian/copyright $pkgdir/usr/share/licenses/$pkgname
+}
+

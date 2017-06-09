@@ -1,0 +1,23 @@
+# Maintainer: Ali Ahmadi <idnux09@gmail.com>
+
+pkgname=stardict-babylon-id-en-id
+pkgver=2.4.2
+pkgrel=1
+pkgdesc="Babylon English Indonesian dictionary for stardict for stardict"
+arch=(any)
+depends=('stardict')
+url="http://abloz.com/huzheng/stardict-dic/babylon/"
+license=('unknown')
+md5sums=('21595622de39abd3732fa2ead6db708b'
+	'7f44a97fc6cd2e255e32d93cf80574e0')
+source=(http://abloz.com/huzheng/stardict-dic/babylon/misc/stardict-babylon-Mas_NDon_English_Indonesian-$pkgver.tar.bz2
+	http://abloz.com/huzheng/stardict-dic/babylon/misc/stardict-babylon-Mas_NDon_Indonesian_to_Engli-$pkgver.tar.bz2)
+
+
+package() {
+	cd $srcdir
+	rm -rf stardict*/res/
+	mkdir -p $pkgdir/usr/share/stardict/dic
+	install -m 644 */* $pkgdir/usr/share/stardict/dic
+}
+

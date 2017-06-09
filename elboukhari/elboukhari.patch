@@ -1,0 +1,12 @@
+diff -Nur elboukhari_1.0/mainwindow.h elboukhari_1.0.n/mainwindow.h
+--- elboukhari_1.0/mainwindow.h	2011-10-07 14:03:23.000000000 +0700
++++ elboukhari_1.0.n/mainwindow.h	2016-01-27 09:22:45.000000000 +0700
+@@ -89,7 +89,7 @@
+     QList<QString > m_listNass;
+     QList<QString > m_listFile;
+     bool animRuned;
+-/*
++
+ //setting
+     QString m_font;
+     QString m_mediaFolder;
